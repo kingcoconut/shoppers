@@ -1,3 +1,12 @@
+function liAuth() {
+  IN.User.authorize(function(){
+    getProfileData();
+    $("#application-complete").click();
+    $("#linkedin-apply").hide();
+    $("#linkedin-authed").show();
+  });
+}
+
 function onLinkedInLoad() {
   IN.Event.on(IN, "auth", getProfileData);
 }

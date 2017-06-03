@@ -1,0 +1,72 @@
+.step{
+  display: none;
+
+  &#step-1{
+    display:block;
+  }
+}
+
+#header-logo{
+  width: 200px;
+  height: 65px;
+}
+
+#form_errors {
+  display:none;
+}
+
+.signup-content-block{
+  margin-top: 100px;
+  h1{
+    font-size:3em
+  }
+}
+.ui.form .field > label {
+  color: black;
+}
+
+.ui.form > div {
+  color: black;
+}
+
+#linkedin-apply{
+  width: 276px;
+  height: 40px;
+  margin: 20px auto;
+  background-image: url(<%= asset_path "linkedin-apply.png" %>);
+  &:hover{
+    cursor:pointer;
+    background-image: url(<%= asset_path "linkedin-apply-hover.png" %>);
+  }
+}
+#linkedin-authed{
+  display: none;
+}
+
+/********************** THEME COLOR MODS ***********************/
+.ui.inverted.primary.segment{
+  background-color: $primary-color!important;
+
+  h1,h2{
+    color:white;
+  }
+}
+.ui.primary.segment{
+  border-top: 2px solid $primary-color!important;
+}
+
+/*************** HERO IMAGES ******************/
+.hero-image-container{
+  width:100%;
+  background-size: cover;
+  background-position: center;
+  background-position-x: center;
+
+  &#shopper-signup-hero{
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url("<%= asset_path 'shopper-hero.jpg' %>")!important;
+  }
+}

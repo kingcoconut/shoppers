@@ -1,28 +1,128 @@
-<div id="wizard">
-  <div id="step-1" class="step">
-    <div id="form_errors"></div>
-    <%= form_for @applicant, html: {name: "applicant_form"}, remote: true do |f| %>
-      <%= f.text_field :first_name %>
-      <%= f.text_field :last_name %>
-      <%= f.text_field :email %>
-      <%= f.text_field :cell %>
-      <%= f.text_field :zipcode %>
-      <%= f.submit %>
-    <% end %>
+<div class="ui large top visible menu">
+  <%= image_tag "instacart-logo.png", class: "header item", id: "header-logo" %>
+</div>
+
+<div class="hero-image-container" id="shopper-signup-hero">
+  <div class="ui stackable two column grid">
+
+    <div class="ui column">
+      <div class="ui very padded segment basic">
+        <div class="signup-content-block">
+          <h1 class="ui center aligned inverted header">Positions at Instacart</h1>
+          <h2 class="ui center aligned inverted header">Shop, check-out, deliver or do it all - there's a role for you at Instacart.</h2>
+          <h2 class="ui center aligned inverted header">Apply in under 5 minutes! Attend an in-person session and start work within one week!</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui column very padded segment basic">
+      <div class="ui very padded segment basic">
+        <div class="ui padded center aligned segment" id="wizard">
+          <div id="step-1" class="step">
+            <h1 class="ui center aligned header">Apply in under 5 minutes!</h1>
+            <div class="ui basic segment left aligned">
+              <div class="ui negative message" id="form_errors"></div>
+              <%= simple_form_for @applicant, html: {name: "applicant_form"}, remote: true do |f| %>
+                <div class="form-inputs">
+                  <div class="ui stackable grid">
+                    <div class="ui eight wide column">
+                      <%= f.input :first_name, required: true, autofocus: true %>
+                    </div>
+                    <div class="ui eight wide column">
+                      <%= f.input :last_name, required: true, autofocus: true %>
+                    </div>
+                    <div class="ui eight wide column">
+                      <%= f.input :email, required: true, autofocus: true %>
+                    </div>
+                    <div class="ui eight wide column">
+                      <%= f.input :cell, required: true, autofocus: true %>
+                    </div>
+                    <div class="ui eight wide column">
+                      <%= f.input :zipcode, required: true, autofocus: true %>
+                    </div>
+                  </div>
+                </div>
+                <div class="ui divider hidden"></div>
+                <div class="form-actions">
+                  <%= f.button :submit, "Continue" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div id="step-2" class="step">
+            <i class="ui street view icon huge"></i>
+            <h2>Instacart is required to do a background check on all of it's perspective workers. Are you OK with instacart running a background check on the details you have provided?</h2>
+            <div class="ui divider hidden"></div>
+            <button id="background-decline"class="ui primary large button">Decline</button>
+            <button id="background-accept" class="ui secondary large button">Accept</button>
+          </div>
+          <div id="step-3" class="step">
+            <i class="ui history icon huge"></i>
+            <h2>Help us expediate your approval</h2>
+            <div id="linkedin-apply" onclick="liAuth()" class="ui padded"></div>
+            <i id="linkedin-authed" class="ui check icon huge green"></i>
+            <p>By connecting your social networks we can process your application faster. This is an optional step though, so don't worry if you are not able to, just click "Complete" below.<p>
+            <button id="application-complete" class="ui primary large button">Complete</button>
+          </div>
+          <div id="step-4" class="step">
+            <i class="ui green smile icon huge"></i>
+            <h2>And that's it, we said it would be under 5 minutes! We will be in touch with you shortly via the details you provided. Thank you and welcome!</h2>
+            <button id="complete-back" class="ui primary large button">Back</button>
+          </div>
+          <div id="step-5" class="step">
+            <i class="ui red frown icon huge"></i>
+            <h2>Unfortunately we are unable to hire any workers who do not consent to a background check</h2>
+            <button id="background-back" class="ui primary large button">Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div id="step-2" class="step">
-    <button id="background-accept">Accept</button>
-    <button id="background-decline">Decline</button>
+</div>
+
+<div class="ui primary inverted segment">
+  <div class="ui container">
+    <div class="ui stackable centered grid">
+      <div class="ui primary eight wide column">
+        <div class="ui very padded segment basic">
+          <i class="ui dollar icon huge"></i>
+          <h1>Earn extra income</h1>
+          <h2>Get paid weekly. Work Sundays to maximize your hours and pay. You choose when you work!</h2>
+        </div>
+      </div>
+      <div class="ui primary eight wide column">
+        <div class="ui very padded segment basic">
+          <i class="ui history icon huge"></i>
+          <h1>Fast Approval</h1>
+          <h2>Apply in under 5 minutes! Attend an in-person session and start work within one week!</h2>
+        </div>
+      </div>
+      <div class="ui primary eight wide column">
+        <div class="ui very padded segment basic">
+          <i class="ui user icon huge"></i>
+          <h1>Be a shopper</h1>
+          <h2>Shop for grocery orders in local stores. Spend time exploring new things and being active</h2>
+        </div>
+      </div>
+      <div class="ui primary eight wide column">
+        <div class="ui very padded segment basic">
+          <i class="ui car icon huge"></i>
+          <h1>Be a driver</h1>
+          <h2>Deliver groceries from local stores to customers. Work unlimited hours and choose your schedule</h2>
+        </div>
+      </div>
+    </div>
   </div>
-  <div id="step-3" class="step">
-    <script type="in/Login"></script>
-    <button id="application-complete">Complete</button>
-  </div>
-  <div id="step-4" class="step">
-    :)
-  </div>
-  <div id="step-5" class="step">
-    :(
-    <button id="background-back">Back</button>
+</div>
+<div class="ui very padded segment basic no-margin">
+  <div class="ui container">
+    <div class="ui stackable column grid">
+      <div class="ui ten wide column">
+        <h1>Start your approval process now, it is that easy!</h1>
+      </div>
+      <div class="ui six wide column">
+        <button class="ui massive primary button" onclick="window.scrollTo(0,0)">Apply Now</button>
+      </div>
+    </div>
   </div>
 </div>

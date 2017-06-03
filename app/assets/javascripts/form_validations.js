@@ -25,7 +25,7 @@ $(document).ready(function(){
     }
   }],
   function(errors, event) {
-    var $errors = $("#form_errors");
+    var $errors = $("#form_errors").hide();
     $errors.html("");
     if (errors.length > 0) {
       event.cancelBubble = true
@@ -33,6 +33,7 @@ $(document).ready(function(){
         var error = $("<p>").html(errors[i].message);
         $errors.append(error);
       }
+      $errors.show();
     }
   });
   applicantFormValidator.setMessage("exact_length", "%s must be a valid US number")
