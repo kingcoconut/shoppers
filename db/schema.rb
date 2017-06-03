@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170603030358) do
+ActiveRecord::Schema.define(version: 20170603100114) do
 
   create_table "applicants", force: :cascade do |t|
     t.string   "first_name"
@@ -23,6 +23,20 @@ ActiveRecord::Schema.define(version: 20170603030358) do
     t.boolean  "background_consent"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+  end
+
+  create_table "linkedin_accounts", force: :cascade do |t|
+    t.integer  "applicant_id"
+    t.string   "linkedin_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "num_connections"
+    t.string   "industry"
+    t.string   "location"
+    t.string   "public_profile_url"
+    t.string   "picture_url"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
 end

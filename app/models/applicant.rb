@@ -1,4 +1,5 @@
 class Applicant < ActiveRecord::Base
+  has_one :linkedin_account
   # this will all be valiated on the frontend but replicated here for consistency
   # and to help prevent abusive script attacks
   validates_presence_of :first_name, :last_name, :email, :zipcode, :cell

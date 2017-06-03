@@ -2,6 +2,17 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  helper_method :current_applicant
+
+  private
+
+  def authenticate_applicant
+    return render json: {message: "Unauthorized access"}, status: 401 if !session[:applicant_id]
+  end
+
+  def current_applicant
+    @current_applicant ||= Applicant.find(session[:applicant_id]) if session[:applicant_id]
+  end
 
   rescue_from ActiveRecord::RecordNotFound do
     render_404

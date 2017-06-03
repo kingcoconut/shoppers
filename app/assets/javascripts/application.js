@@ -45,6 +45,16 @@ $(document).ready(function(){
 
   $("#background-decline").on("click", function(){
     $(".step").hide();
+    $("#step-5").show();
+  })
+
+  $("#background-back").on("click", function(){
+    $(".step").hide();
+    $("#step-2").show();
+  })
+
+  $("#application-complete").on("click", function(){
+    $(".step").hide();
     $("#step-4").show();
   })
 });

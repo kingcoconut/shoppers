@@ -27,12 +27,4 @@ class ApplicantsController < ApplicationController
   def clean_params
     params.require(:applicant).permit(:first_name, :last_name, :email, :cell, :zipcode, :background_consent)
   end
-
-  def authenticate_applicant
-    return render json: {message: "Unauthorized access"}, status: 401 if !session[:applicant_id]
-  end
-
-  def current_applicant
-    @applicant ||= Applicant.find(session[:applicant_id])
-  end
 end
