@@ -8,7 +8,7 @@ class ApplicantsController < ApplicationController
     applicant = Applicant.new(clean_params)
     if applicant.save
       session[:applicant_id] = applicant.id
-      render json: {message: "Successfully created application"}
+      render json: {applicant: applicant}
     else
       render json: {errors: applicant.errors }, status: 400
     end
@@ -16,9 +16,19 @@ class ApplicantsController < ApplicationController
 
   def update
     if current_applicant.update_attributes(clean_params)
-      render json: {message: "Successfully updated application"}
+      render json: {applicant: current_applicant}
     else
       render json: {errors: current_applicant.errors}, status: 400
+    end
+  end
+
+  def establish_session
+    current_applicant ||= Applicant.where(id: params[:id], email: params[:email]).first
+    if current_applicant.nil?
+      return render json: {message: "unauthorized action"}, status: 401
+    else
+      session[:applicant_id] = current_applicant.id
+      return render json: {message: "session established"}
     end
   end
 
