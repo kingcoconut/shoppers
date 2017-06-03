@@ -18,7 +18,7 @@ $(document).ready(function(){
   },{
     name: 'applicant[cell]',
     display: 'Cell Phone Number',
-    rules: 'required|exact_length[10]',
+    rules: 'required|min_length[10]|max_length[11]',
     depends: function(field){
       field.element.value = field.element.value.replace(/\D/g,'')
       return true
@@ -36,5 +36,4 @@ $(document).ready(function(){
       $errors.show();
     }
   });
-  applicantFormValidator.setMessage("exact_length", "%s must be a valid US number")
 });
