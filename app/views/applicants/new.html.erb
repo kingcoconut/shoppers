@@ -1,0 +1,23 @@
+<div id="wizard">
+  <div id="step-1" class="step">
+    <div id="form_errors"></div>
+    <%= form_for @applicant, html: {name: "applicant_form"}, remote: true do |f| %>
+      <%= f.text_field :first_name %>
+      <%= f.text_field :last_name %>
+      <%= f.text_field :email %>
+      <%= f.text_field :cell %>
+      <%= f.text_field :zipcode %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+  <div id="step-2" class="step">
+    <button id="background-accept">Accept</button>
+    <button id="background-decline">Decline</button>
+  </div>
+  <div id="step-3" class="step">
+    :)
+  </div>
+  <div id="step-4" class="step">
+    :(
+  </div>
+</div>
