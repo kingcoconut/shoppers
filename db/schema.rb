@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20170603100114) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "applicants", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -39,4 +42,5 @@ ActiveRecord::Schema.define(version: 20170603100114) do
     t.datetime "updated_at",         null: false
   end
 
+  add_foreign_key "linkedin_accounts", "applicants"
 end
