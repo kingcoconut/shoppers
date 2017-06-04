@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require validate
-//= require_tree .
+//= require applicant_wizard
+//= require form_validations
+//= require social
