@@ -32,7 +32,7 @@ class Applicant < ActiveRecord::Base
     end
     collection
   end
-
+  
   private
 
   def self.named_functions
