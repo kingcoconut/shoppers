@@ -32,6 +32,17 @@ class ApplicantsController < ApplicationController
     end
   end
 
+  def funnels
+    return render_400 unless params[:start_date] && params[:end_date]
+    # check if params are valid date strings
+    begin
+      Date.parse(params[:start_date]) && Date.parse(params[:end_date])
+    rescue
+      return render_400
+    end
+    render json: Applicant.retrieve_weekly_stats(params[:start_date], params[:end_date])
+  end
+
   private
 
   def clean_params

@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe ApplicantsController, type: :controller do
+  before :each do
+    request.env["HTTP_ACCEPT"] = 'application/json'
+  end
   describe "#create" do
     context "valid params" do
       let(:applicant){double('applicant', save: true, id: 1)}
@@ -48,6 +51,32 @@ RSpec.describe ApplicantsController, type: :controller do
       it "returns a 401" do
         put :update
         expect(response.status).to be 401
+      end
+    end
+  end
+
+  describe "#funnels" do
+    context "invalid params" do
+      it "returns a 400" do
+        get :funnels
+        expect(response.status).to eq 400
+      end
+
+      it "does not allow params that are not dates" do
+        get :funnels, start_date: "foo", end_date: [], :format => :json
+        expect(response.status).to eq 400
+      end
+    end
+
+    context "valid params" do
+      it "queries applicants for date range" do
+        start_date = "1980-01-01"
+        end_date = "1990-01-01"
+        result = {foo: "bar"}
+        expect(Applicant).to receive(:retrieve_weekly_stats).with(start_date, end_date).and_return(result)
+        get :funnels, start_date: start_date, end_date: end_date
+        expect(response.status).to eq 200
+        expect(response.body).to eq result.to_json
       end
     end
   end
