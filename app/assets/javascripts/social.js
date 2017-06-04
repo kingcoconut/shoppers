@@ -7,10 +7,6 @@ function liAuth() {
   });
 }
 
-function onLinkedInLoad() {
-  IN.Event.on(IN, "auth", getProfileData);
-}
-
 // Handle the successful return from the API call
 function onSuccess(data) {
   $.ajax({

@@ -53,8 +53,8 @@
             <i class="ui street view icon huge"></i>
             <h2>Instacart is required to do a background check on all of it's perspective workers. Are you OK with instacart running a background check on the details you have provided?</h2>
             <div class="ui divider hidden"></div>
-            <button id="background-decline"class="ui primary large button">Decline</button>
-            <button id="background-accept" class="ui secondary large button">Accept</button>
+            <button class="ui primary large button wizard-button" onclick="App.updateApplicant({background_consent: false})" data-display="#step-5">Decline</button>
+            <button class="ui secondary large button wizard-button" onclick="App.updateApplicant({background_consent: true})" data-display="#step-3">Accept</button>
           </div>
           <div id="step-3" class="step">
             <i class="ui history icon huge"></i>
@@ -62,17 +62,17 @@
             <div id="linkedin-apply" onclick="liAuth()" class="ui padded"></div>
             <i id="linkedin-authed" class="ui check icon huge green"></i>
             <p>By connecting your social networks we can process your application faster. This is an optional step though, so don't worry if you are not able to, just click "Complete" below.<p>
-            <button id="application-complete" class="ui primary large button">Complete</button>
+            <button class="ui primary large button wizard-button" data-display="#step-4">Complete</button>
           </div>
           <div id="step-4" class="step">
             <i class="ui green smile icon huge"></i>
             <h2>And that's it, we said it would be under 5 minutes! We will be in touch with you shortly via the details you provided. Thank you and welcome!</h2>
-            <button id="complete-back" class="ui primary large button">Back</button>
+            <button class="ui primary large button wizard-button" data-display="#step-3">Back</button>
           </div>
           <div id="step-5" class="step">
             <i class="ui red frown icon huge"></i>
             <h2>Unfortunately we are unable to hire any workers who do not consent to a background check</h2>
-            <button id="background-back" class="ui primary large button">Back</button>
+            <button class="ui primary large button wizard-button" data-display="#step-2">Back</button>
           </div>
         </div>
       </div>

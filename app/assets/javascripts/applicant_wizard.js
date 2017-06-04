@@ -1,96 +1,71 @@
-$(document).ready(function(){
-  $("#new_applicant").on("ajax:success", function(e, data){
-    window.applicant = data.applicant
-    if (typeof(Storage) !== "undefined") {
-      localStorage.setItem("applicant", JSON.stringify(data.applicant))
-    }
-    $(".step").hide();
-    $("#step-2").show();
-  }).on("ajax:error", function(e, response, message){
-    var errors = response.responseJSON.errors
-    $("#form_errors").html("").hide()
-    for (var key in errors) {
-      var $p = $("<p>").html(key + " " + errors[key][0])
-      $("#form_errors").append($p)
-    }
-    $("#form_errors").show();
-  })
-
-  $("#background-accept").on("click", function(){
-    $.ajax({
-      url: "/applicant",
-      data: {applicant: {background_consent: true}},
-      method: "PUT",
-      success: function(data){
-        if (typeof(Storage) !== "undefined") {
-          localStorage.setItem("applicant", JSON.stringify(data.applicant))
-        }
-      }
-    });
-    // don't wait for response
-    $(".step").hide();
-    $("#step-3").show();
-  })
-
-  $("#background-decline").on("click", function(){
-    $.ajax({
-      url: "/applicant",
-      data: {applicant: {background_consent: false}},
-      method: "PUT",
-      success: function(data){
-        if (typeof(Storage) !== "undefined") {
-          localStorage.setItem("applicant", JSON.stringify(data.applicant))
-        }
-      }
-    })
-    // don't wait for response
-    $(".step").hide();
-    $("#step-5").show();
-  })
-
-  $("#background-back").on("click", function(){
-    $(".step").hide();
-    $("#step-2").show();
-  })
-
-  $("#application-complete").on("click", function(){
-    $(".step").hide();
-    $("#step-4").show();
-  })
-  $("#complete-back").on("click", function(){
-    $(".step").hide();
-    $("#step-3").show();
-  });
-
-  // This is how we determine what state/page to display the user
-  if (typeof(Storage) !== "undefined") {
-    window.applicant = localStorage.getItem("applicant")
+var App = {
+  init: function(){
+    this.checkLocalStorage();
+    this.setupForm();
+    this.setupButtons();
+  },
+  checkLocalStorage: function(){
+    // This is how we determine what state/page to display the user
+    applicant = this.getLocalApplicant()
     if(applicant){
       $("#step-1").hide();
       applicant = JSON.parse(applicant);
 
       // the user may have cleared there cookies but not their localStorage
-      establishSession(applicant.id, applicant.email)
+      this.establishSession(applicant.id, applicant.email)
       if(applicant.background_consent !== null){
-        if(applicant.background_consent){
-          $("#step-3.step").show();
-        }else{
-          $("#step-5.step").show();
-        }
+        (applicant.background_consent) ? $("#step-3").show() : $("#step-5").show();
       }else{
         // no background check consent yet
-        $("#step-2.step").show();
+        $("#step-2").show();
       }
-    }else{
-      $("#step-1.step").show();
     }
-  }else{
-    $("#step-1.step").show();
-  }
-
-  // We need to restablish the applicant session incase the user
-  // has cleared their cookies but not their localstorage
-  function establishSession(id, email){
+  },
+  setupForm: function(){
+    var self = this;
+    $("#new_applicant").on("ajax:success", function(e, data){
+      self.saveLocalApplicant(data.applicant)
+      $(".step").hide();
+      $("#step-2").show();
+    }).on("ajax:error", function(e, response, message){
+      var errors = response.responseJSON.errors
+      $("#form_errors").html("").hide()
+      for (var key in errors) {
+        var $p = $("<p>").html(key + " " + errors[key][0])
+        $("#form_errors").append($p)
+      }
+      $("#form_errors").show();
+    });
+  },
+  setupButtons: function(){
+    $(".wizard-button").on("click", function(){
+      $(".step").hide();
+      var id = $(this).data('display');
+      $(id).show();
+    });
+  },
+  updateApplicant: function(data){
+    var self = this;
+    $.ajax({
+      url: "/applicant",
+      data: {applicant: data},
+      method: "PUT",
+      success: function(data){
+        self.saveLocalApplicant(data.applicant);
+      }
+    });
+  },
+  saveLocalApplicant: function(applicant){
+    if (typeof(Storage) !== "undefined") {
+      localStorage.setItem("applicant", JSON.stringify(applicant))
+    }
+  },
+  getLocalApplicant: function(){
+    if (typeof(Storage) !== "undefined") {
+      return localStorage.getItem("applicant")
+    }
+  },
+  establishSession: function(id, email){
     $.ajax({
       url: "applicant/session",
       method: "POST",
@@ -100,4 +75,8 @@ $(document).ready(function(){
       }
     });
   }
+}
+
+$(document).ready(function(){
+  App.init();
 });
