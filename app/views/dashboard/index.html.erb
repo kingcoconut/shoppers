@@ -1,1 +1,47 @@
 <h1>Dashbaord</h1>
+
+<div id="main"></div>
+
+<script type="text/template" id="main-layout">
+  <div id="search"></div>
+  <div id="table"></div>
+</script>
+
+<script type="text/template" id="applicant-groups-table">
+  <table class="ui celled table" id="applicant-grouped-table">
+    <thead>
+      <tr>
+        <th>Week Start</th>
+        <th>Week End</th>
+        <% $APPLICANT_STATES.each do |el| %>
+          <th><%= el.split("_").map {|el| el.capitalize }.join(" ")%></th>
+        <%end%>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</script>
+
+<script type="text/template" id="applicant-group">
+  <td>{{= WeekStart }}</td>
+  <td>{{= WeekEnd }}</td>
+  <% $APPLICANT_STATES.each do |el| %>
+    <td>{{= <%= el.split("_").map {|el| el.capitalize }.join("") %> }}</td>
+  <%end%>
+</script>
+
+<script type="text/template" id="search-template">
+  <div class="ui calendar" id="start_date">
+    <div class="ui input left icon">
+      <i class="calendar icon"></i>
+      <input type="text" placeholder="Date/Time">
+    </div>
+  </div>
+  <div class="ui calendar" id="end_date">
+    <div class="ui input left icon">
+      <i class="calendar icon"></i>
+      <input type="text" placeholder="Date/Time">
+    </div>
+  </div>
+  <button id="search" class="ui primary button">Search</button>
+</script>

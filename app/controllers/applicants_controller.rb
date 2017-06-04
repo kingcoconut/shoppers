@@ -1,5 +1,7 @@
 class ApplicantsController < ApplicationController
   before_filter :authenticate_applicant, only: [:update]
+  before_filter :enforce_date_range_params, only: [:funnels]
+
   def new
     @applicant = Applicant.new
   end
@@ -33,13 +35,6 @@ class ApplicantsController < ApplicationController
   end
 
   def funnels
-    return render_400 unless params[:start_date] && params[:end_date]
-    # check if params are valid date strings
-    begin
-      Date.parse(params[:start_date]) && Date.parse(params[:end_date])
-    rescue
-      return render_400
-    end
     render json: Applicant.retrieve_weekly_stats(params[:start_date], params[:end_date])
   end
 

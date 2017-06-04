@@ -9,8 +9,6 @@ class Applicant < ActiveRecord::Base
   phony_normalize :cell, default_country_code: 'US'
   validates :cell, phony_plausible: true
 
-  $APPLICANT_STATES = ["applied", "quiz_started", "quiz_completed", "onboarding_requested", "hired", "rejected"]
-
   def self.retrieve_weekly_stats(start_date, end_date)
     # retrieve the named functions based on what DB we are using
     week_field, start_week, end_week = named_functions

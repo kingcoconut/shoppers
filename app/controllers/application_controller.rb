@@ -6,6 +6,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def enforce_date_range_params
+    begin
+      return render_400 unless params[:start_date].to_date && params[:end_date].to_date
+    rescue
+      return render_400
+    end
+  end
+
   def authenticate_applicant
     return render json: {message: "Unauthorized access"}, status: 401 if !session[:applicant_id]
   end
