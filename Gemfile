@@ -26,6 +26,7 @@ gem "simple_form"
 # I want to be able to seed prod DB easily
 gem "faker"
 gem "aasm"
+gem "font_assets"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

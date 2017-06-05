@@ -76,4 +76,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Set asset host to cloudfront distro via environment variable so we can update without deploy
+  config.action_controller.asset_host = ENV["ASSET_HOST"]
+  # setup CORS for fonts via CDN
+  config.font_assets.origin = "http://www.instacart.solutions"
 end
