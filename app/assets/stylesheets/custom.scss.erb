@@ -1,32 +1,37 @@
-.step{
-  display: none;
+#wizard{
+  .step{
+    display: none;
 
-  &#step-1{
-    display:block;
+    &#step-1{
+      display:block;
+    }
+  }
+
+  .basic.segment.edit-application{
+    padding:0px;
+  }
+
+  #form_errors {
+    display:none;
+  }
+
+  .signup-content-block{
+    margin-top: 100px;
+    h1{
+      font-size:3em
+    }
+  }
+  .ui.form .field > label {
+    color: black;
+  }
+
+  .ui.form > div {
+    color: black;
   }
 }
 
-#header-logo{
-  width: 200px;
-  height: 65px;
-}
-
-#form_errors {
-  display:none;
-}
-
-.signup-content-block{
-  margin-top: 100px;
-  h1{
-    font-size:3em
-  }
-}
-.ui.form .field > label {
-  color: black;
-}
-
-.ui.form > div {
-  color: black;
+#hero-text{
+  padding-top: 150px;
 }
 
 #linkedin-apply{
@@ -41,6 +46,11 @@
 }
 #linkedin-authed{
   display: none;
+}
+
+#header-logo{
+  width: 200px;
+  height: 65px;
 }
 
 /********************** THEME COLOR MODS ***********************/
@@ -89,5 +99,16 @@
   cursor:pointer;
   &:hover{
     background-color:#e6e6e6;
+  }
+}
+
+#admin {
+  position: absolute;
+  right: 30px;
+  top:25px;
+  font-size: 1.2em;
+  text-decoration: underline;
+  @media screen and (min-width: 767px){
+    right: 100px;
   }
 }

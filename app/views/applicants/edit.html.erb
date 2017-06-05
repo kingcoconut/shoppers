@@ -1,0 +1,39 @@
+<div class="ui column very padded segment basic">
+  <div class="ui very padded segment basic">
+    <div class="ui padded center aligned segment" id="wizard">
+      <div id="step-1" class="step">
+        <h1 class="ui center aligned header">Edit your application</h1>
+        <div class="ui basic segment left aligned">
+          <div class="ui negative message" id="form_errors"></div>
+          <%= simple_form_for @applicant, html: {name: "applicant_form"}, url: "/applicant", method: "PUT" do |f| %>
+            <div class="form-inputs">
+              <div class="ui stackable grid">
+                <div class="ui eight wide column">
+                  <%= f.input :first_name, required: true, autofocus: true %>
+                </div>
+                <div class="ui eight wide column">
+                  <%= f.input :last_name, required: true, autofocus: true %>
+                </div>
+                <div class="ui eight wide column">
+                  <%= f.input :email, required: true, autofocus: true %>
+                </div>
+                <div class="ui eight wide column">
+                  <%= f.input :cell, required: true, autofocus: true %>
+                </div>
+                <div class="ui eight wide column">
+                  <%= f.input :zipcode, required: true, autofocus: true %>
+                </div>
+              </div>
+            </div>
+            <div class="ui divider hidden"></div>
+            <div class="form-actions">
+              <%= f.button :submit, "Update" %>
+              <%= link_to "Cancel", root_path, class: "ui button" %>
+              <a href="https://instacart.com">Back to Instacart</a>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,12 +1,13 @@
 <div class="ui large top visible menu">
   <%= image_tag "instacart-logo.png", class: "header item", id: "header-logo" %>
+  <%= link_to "Admin", admin_path, id: "admin" %>
 </div>
 
 <div class="hero-image-container" id="shopper-signup-hero">
   <div class="ui stackable two column grid">
 
     <div class="ui column">
-      <div class="ui very padded segment basic">
+      <div class="ui very padded segment basic" id="hero-text">
         <div class="signup-content-block">
           <h1 class="ui center aligned inverted header">Positions at Instacart</h1>
           <h2 class="ui center aligned inverted header">Shop, check-out, deliver or do it all - there's a role for you at Instacart.</h2>
@@ -73,6 +74,12 @@
             <i class="ui red frown icon huge"></i>
             <h2>Unfortunately we are unable to hire any workers who do not consent to a background check</h2>
             <button class="ui primary large button wizard-button" data-display="#step-2">Back</button>
+          </div>
+          <div class="ui right aligned basic segment edit-application">
+            <a href="#" onclick="App.deleteSession()"><u>Start Over</u></a> |
+              <%= link_to applicant_edit_path do %>
+                edit your application<i class="ui edit icon"></i></a>
+              <%end%>
           </div>
         </div>
       </div>

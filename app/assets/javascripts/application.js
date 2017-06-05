@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require validate
 //= require applicant_wizard
 //= require form_validations

@@ -12,7 +12,7 @@ var App = {
       applicant = JSON.parse(applicant);
 
       // the user may have cleared there cookies but not their localStorage
-      this.establishSession(applicant.id, applicant.email)
+      this.establishSession(applicant.email, applicant.cell)
       if(applicant.background_consent !== null){
         (applicant.background_consent) ? $("#step-3").show() : $("#step-5").show();
       }else{
@@ -65,15 +65,29 @@ var App = {
       return localStorage.getItem("applicant")
     }
   },
-  establishSession: function(id, email){
+  establishSession: function(email, cell){
     $.ajax({
       url: "applicant/session",
       method: "POST",
       data: {
-        id: id,
+        cell: cell,
         email: email
       }
     });
+  },
+  deleteSession: function(e){
+    if (typeof(Storage) !== "undefined") {
+      localStorage.removeItem("applicant")
+    }
+    $.ajax({url: "applicant/session", method: "DELETE"});
+    window.location = "/";
+  },
+  editApplication: function(){
+    applicant = this.getLocalApplicant();
+    if(applicant){
+      $(".step").hide()
+      $("#step-7").show()
+    }
   }
 }
 

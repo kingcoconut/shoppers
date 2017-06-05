@@ -15,7 +15,12 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_applicant
-    return render json: {message: "Unauthorized access"}, status: 401 if !session[:applicant_id]
+    unless session[:applicant_id]
+      respond_to do |format|
+        format.json {render json: {message: "Unauthorized access"}, status: 401}
+        format.html {redirect_to applicant_login_path}
+      end
+    end
   end
 
   def current_applicant

@@ -1,9 +1,14 @@
 class ApplicantsController < ApplicationController
-  before_filter :authenticate_applicant, only: [:update]
+  before_filter :authenticate_applicant, only: [:update, :edit]
   before_filter :enforce_date_range_params, only: [:funnels]
 
   def new
     @applicant = Applicant.new
+  end
+
+  def edit
+    @applicant = current_applicant
+    render layout: "edit"
   end
 
   def create
@@ -17,21 +22,44 @@ class ApplicantsController < ApplicationController
   end
 
   def update
-    if current_applicant.update_attributes(clean_params)
-      render json: {applicant: current_applicant}
+    @applicant = current_applicant
+    if @applicant.update_attributes(clean_params)
+      respond_to do |format|
+        format.json { render json: {applicant: current_applicant} }
+        format.html { render layout: "edit" }
+      end
     else
-      render json: {errors: current_applicant.errors}, status: 400
+      respond_to do |format|
+        format.json { render json: {errors: current_applicant.errors}, status: 400}
+        format.html {
+          render :edit, layout: "edit"
+        }
+      end
     end
   end
 
   def establish_session
-    current_applicant ||= Applicant.where(id: params[:id], email: params[:email]).first
+    # We are using like for the cell phone lookup to handle the case when they signed up with a international code prepended on their number
+    # but are now supplying their numbr without the code added. Therefore we must enforce that the cell value is atleast length 10 to prevent abuse
+    current_applicant ||= Applicant.where("cell LIKE ?", "%#{params[:cell]}%").where(email: params[:email]).first if params[:cell].length >= 10
     if current_applicant.nil?
-      return render json: {message: "unauthorized action"}, status: 401
+      @invalid = true
+      respond_to do |format|
+        format.json { render json: {message: "unauthorized action"}, status: 401 }
+        format.html { render :login, layout: "edit" }
+      end
     else
       session[:applicant_id] = current_applicant.id
-      return render json: {message: "session established"}
+      respond_to do |format|
+        format.json { render json: {message: "session established"} }
+        format.html { redirect_to applicant_edit_path }
+      end
     end
+  end
+
+  def destroy_session
+    session.delete(:applicant_id)
+    render json: {}
   end
 
   def funnels

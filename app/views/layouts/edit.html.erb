@@ -2,19 +2,11 @@
 <html>
 <head>
   <title>Instacart - Apply</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <link rel="shortcut icon" type="image/x-icon" href="https://d2nkqaulr5muje.cloudfront.net/assets/beetstrap/favicon-0995468e5b806a64af9233ad36ac3af784bdbb58405dd1fdc9f89ba93c7d4eb1.ico" />
-
-  <script type="text/javascript" src="//platform.linkedin.com/in.js">
-    api_key:   <%= ENV['LINKEDIN_CLIENT_ID']%>
-    authorize: false
-  </script>
 </head>
 <body>
-
-<%= yield %>
-
+  <%= yield %>
 </body>
 </html>
